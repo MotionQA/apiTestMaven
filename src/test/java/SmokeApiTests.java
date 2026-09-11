@@ -4,7 +4,7 @@ import org.junit.Test;
 import static io.restassured.RestAssured.given;
 
 public class SmokeApiTests {
-    private static final String BASE_URL = "https://petstore.swagger.io/v2/";
+    private static final String BASE_URL = "http://localhost:8080";
 
     @Test
     public void createUserTest(){
@@ -19,15 +19,15 @@ public class SmokeApiTests {
                 "password": "string",
                 "phone": "string",
                 "userStatus": 0,
-}""";
+                }""";
 
         ValidatableResponse response = given()
                 .header( "accept", "application/json")
                 .header( "Content-Type" ,"application/json")
                 .body(bodyJson)
-                .when().post(BASE_URL + "user")
+                .when().post(BASE_URL )
                 .then();
-        response.statusCode(403);
+        response.statusCode(200);
         response.extract().response().prettyPrint();
     }
 }
